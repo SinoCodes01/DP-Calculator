@@ -1,0 +1,92 @@
+@page "/dp"
+@rendermode InteractiveServer
+@using BlazorApp1.Components.Models
+
+<PageTitle>Iyahlangana iDP?</PageTitle>
+
+<h1>DP Calculator</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Assessment</th>
+            <th>Weight (%)</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in assessmentsList)
+        {
+            <tr>
+                <td><input class="form-control" @bind="a.Assessment" /></td>
+                <td><input type="number" class="form-control" @bind="a.WeightedMark" /></td>
+                <td><input type="number" class="form-control" @bind="a.Score" /></td>
+                <td><button class="btn btn-danger" @onclick="() => RemoveAssessment(a)">Delete</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-success" @onclick="AddAssessment">Add Assessment</button>
+<button class="btn btn-primary" @onclick="CalculateDp">Calculate</button>
+
+@if (finalMark > 0)
+{
+<p role="status">
+    <strong>Final Mark: @finalMark</strong>
+    <span class="@GetStatusClass()">@GetStatusMessage()</span>
+</p>
+}
+
+
+@code {
+    private int finalMark = 0;
+
+    private List<Assessments> assessmentsList = new List<Assessments>
+    {
+        new Assessments { Assessment = "Assessment 1", WeightedMark = 30, Score = 80 },
+        new Assessments { Assessment = "Assessment 2", WeightedMark = 30, Score = 70 },
+        new Assessments { Assessment = "Assessment 3", WeightedMark = 40, Score = 90 }
+    };
+
+    private Assessments newAssessment = new Assessments();
+    Assessments assessments = new Assessments();
+
+
+    private void CalculateDp()
+    {
+        finalMark = 0;
+        foreach (var assessment in assessmentsList)
+        {
+            finalMark += (assessment.WeightedMark * assessment.Score) / 100; //calculate final mark
+        }
+    }
+
+    private string GetStatusMessage()
+    {
+        return finalMark >= 50 ? "Pass" : "Failed";
+    }
+
+    private string GetStatusClass()
+    {
+        return finalMark >= 50 ? "text-success fw-bold" : "text-danger fw-bold";
+    }
+
+
+    private void AddAssessment()
+    {
+        assessmentsList.Add(new Assessments 
+        { 
+            Assessment = assessments.Assessment, 
+            WeightedMark = assessments.WeightedMark, 
+            Score = assessments.Score 
+        });
+
+        assessments = new Assessments(); // Reset the input fields
+    }
+    private void RemoveAssessment(Assessments assessment)
+    {
+        assessmentsList.Remove(assessment);
+    }
+}
