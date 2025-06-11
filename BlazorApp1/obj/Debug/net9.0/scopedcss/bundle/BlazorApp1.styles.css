@@ -10,7 +10,7 @@ main[b-j65y7q72mt] {
 }
 
 .sidebar[b-j65y7q72mt] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-color: #121212;
 }
 
 .top-row[b-j65y7q72mt] {
@@ -117,7 +117,7 @@ main[b-j65y7q72mt] {
 
 .top-row[b-5bndfk4shp] {
     min-height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: #1E1E1E;
 }
 
 .navbar-brand[b-5bndfk4shp] {

@@ -21,7 +21,7 @@ A simple **DP (Duly Performance) Calculator** built using **Blazor Server**. Thi
 
 ## 🖥️ Tech Stack
 
-- ASP.NET Core 8 (Blazor Server)
+- ASP.NET Core 8 (Blazor Web App)
 - C#
 - Razor Components
 - Css (styling)
